@@ -1,5 +1,6 @@
 
 # Spring IoC
+
 + IoC?
     + Inversion of Control
     + 내가 사용할 의존성을 안에서 생성하지 않고, 밖에서 인자로 받아옴
@@ -37,8 +38,107 @@
 
 # Spring AOP
 
++ AOP?
+    + Aspect Oriented Programming
+    + 흩어진 코드를 한 곳으로 모아놓는 것
+
++ 다양한 AOP 구현방법
+    + 컴파일
+        + AspectJ 이용 
+        + a.java -------(AOP)-------> a.class
+    + 바이트코드 조작
+        + AspectJ 이용
+        + a.java ---> a.class ----(AOP)---> 메모리
+    + 프록시 패턴
+        + 스프링 AOP가 사용
+        + ref: https://refactoring.guru/design-patterns/proxy
+    
++ 프록시 패턴 실제 구현 예제
+    + proxy 패키지 생성
+    + proxy/Payment.java 생성
+        + payment.java 
+            <pre>
+            public interface payment {
+            
+                void pay(int amount);
+            }
+            </pre>
+    + proxy/Store.java 생성
+        + Store.java 
+            <pre>
+            public class Store {
+            
+                Payment payment;
+
+                public Store(Payment payment) {
+                 this.payment = payment;
+                }
+
+                public void buySomething(int amount) {
+                    payment.pay(amount);
+                }
+            }
+            </pre>
+    + proxy/Cash.java 생성
+        + Cash.java 
+            <pre>
+            public class Cash implements Payment {
+            
+                @Override
+                public void pay(int amount) {
+                    System.out.println(amount + "현금 결제");
+                }
+            }
+            </pre>
+    + proxy/CashPerf.java 생성 => 프록시 역할
+        + CashPerf.java 
+            <pre>
+            public class CashPerf implements Payment {
+                
+                Payment cash = new Cash();
+                
+                @Override
+                public void pay(int amount) {
+                    StopWatch stopWatch = new StopWatch();
+                    stopWatch.start();
+                    cash.pay(amount);
+                    stopWatch.stop();
+                    System.out.println(stopWatch.prettyPrint());
+                }
+            }
+            </pre>
+    + proxy/mainStore.java 생성
+        + mainStore.java 
+            <pre>
+            public class mainStore {
+                
+                @Test
+                public void testPay() {
+                    // proxy 사용 코드
+                    Payment cashPerf = new CashPerf();
+                    // proxy 미사용 코드
+                    //Payment cash = new Cash();
+                    Store store = new Store(cashPerf);
+                    store.buySomething(100);    
+                }
+            }
+            </pre>
+
++ @AOP 실습
+    + 
+
 # Spring PSA
 
+# 알아두면 좋은 것?
+
++ spring 제공 프로파일러
+    + StopWatch stopWatch = new StopWatch();
+    + stopWatch.start();
+    + stopWatch.stop();
+    + stopWatch().prettyPrint();
+
++ java 컴파일 과정
+    + ref: https://aljjabaegi.tistory.com/387
 
 # Error 모음
 
