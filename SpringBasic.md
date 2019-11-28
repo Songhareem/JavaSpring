@@ -125,9 +125,60 @@
             </pre>
 
 + @AOP 실습
-    + 
+    + 에노테이션을 이용한 AOP 만들기
+    + @LogExecutionTime 에노테이션으로 사용
+    + <pre>
+        @Target(ElementType.METHOD)
+        @Retention(RetentionPolicy.RUNTIME)
+        public @interface Sample {}
+    </pre>
+    + <pre>
+        @Componet
+        @Aspect
+        public class LogAspect {
+
+            Logger loger = LoggerFactory.getLogger(LogAspect.class);
+
+            @Around("@annotation(LogExecutionTime)")
+            public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+
+                StopWatch stopWatch = new StopWatch();
+                stopWatch.start();
+                
+                Object proceed = joinPoint.proceed();
+
+                stopWatch.stop();
+                logger.info(stopWatch.prettyPrint());
+
+                return proceed;
+            }
+        }
+    </pre>
 
 # Spring PSA
+
++ PSA?
+    + Potable Service Abstraction
+    + = 잘 만든 인더페이스
+    + 코드를 거의 OR 아예 변경하지 않고 쓰이는 기술을 바꿀 수 있다
+        + Servlet? OR Reactive?
+        + Tomcat? OR Netty? OR Jetty? OR Undertow?
+
++ PSA 사용
+    + 스프링 웹 MVC
+        + @Controller | @RequestMapping | ...
+    + 스프링 트랜잭션
+        + @Transactional
+    + 스프링 캐시
+        + @Casheable | @CacheEvict
+
++ WebFlex? 
+    + CPU 갯수만큼의 스레드 유지 
+    + Netty 기반
+
++ servlet 
+    + 하나의 요청당 하나의 스레드
+    + 보통 Tomcat 기반
 
 # 알아두면 좋은 것?
 
