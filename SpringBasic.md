@@ -2,12 +2,14 @@
 # Spring IoC
 
 + IoC?
-    + Inversion of Control
+    + Inversion of Control (제어 역전)
+    + 객체에 대한 제어권을 개발자가 아닌 프레임워크가 가짐
     + 내가 사용할 의존성을 안에서 생성하지 않고, 밖에서 인자로 받아옴
     + ex) Dependency Injection
 
- + Bean? 
+ + Bean? (Plain Old Java Object)
     + App의 핵심을 이루는 객체, IoC 컨테이너에 의해 인스턴스화, 관리, 생성
+    + 자바 모델이나 기능 프레임워크 등에 따르지 않고 홀로 독립적이며 단순한 기능만을 가진 객체
 
 + IoC 컨테이너?
     + Bean을 만들고 Bean들을 엮어주고 제공

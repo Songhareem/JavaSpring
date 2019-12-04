@@ -1,6 +1,15 @@
 
-eclipse/
-
 jdk-13.0.1/
+jdk1.8.0_231/
 
 SpringExample/
+
+apache-tomcat-7.0.96
+
+IntelliJ IDEA Community Edition 2019.3/
+
+ideaIC-2019.3
+
+ref/
+
+*.lnk
