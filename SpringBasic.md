@@ -18,6 +18,18 @@
     + ApplicationContext (BeanFactory 상속)
     + 의존성 주입은 Bean끼리만 가능! (IoC컨테이너 안에 있는 Bean끼리)
 
++ Bean 객체 생성
+    + xml을 로딩할 때 자동으로 객체가 생성된다.(디폴트로 lazy-init = "false")
+    + 생성된 객체는 더 이상 생성되지 않는다. (디폴트로 scope="singleton")
+    + Bean 태그의 속성
+        + class : 객체를 생성하기위해 사용할 클래스를 지정
+        + id : id 속성 부여하면 getBean 메서드를 통해 객체의 주소값을 받아 사용가능
+        + lazy-init : = "true" 값을 넣으면, xml 로딩시 객체를 생성하는 것이 아닌, getBean 호출시 생성
+        + scope : 객체의 범위를 설정 (Singleton: 객체를 하나만 생성해서 사용, prototype: 객체를 가져올때마다 객체 생성(암묵적으로 lazy-init = "true"))
+
++ Bean 객체 생명 주기
+    + 
+
 + 의존성?
     + 코드에서 두 모듈 간의 연결
     + OPP에서는 두 클래스 간의 관계라 표현

@@ -7,4 +7,8 @@
 
 	
 	<bean id='t1' class='kr.co.song.beans.TestBean'/>						
+	
+	<!-- xml을 로딩할때 자동으로 객체 생성 -->
+	<!-- 생성된 객체는 더이상 생성되지 않는다 (SingleTon) -->
+	<bean class = "kr.co.song.beans.TestBean"/>
 </beans>
