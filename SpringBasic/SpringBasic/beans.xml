@@ -6,5 +6,5 @@
 							http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	
-	<bean id='t2' class='kr.co.song.beans.TestBean'/>						
+	<bean id='lec1_outter' class='kr.co.song.beans.TestBean'/>						
 </beans>

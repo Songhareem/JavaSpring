@@ -6,4 +6,9 @@ public class TestBean {
 		
 		System.out.println("TestBean 생성");
 	}
+	
+	public void initMethod() {
+		
+		System.out.println("initMethod 호출");
+	}
 }

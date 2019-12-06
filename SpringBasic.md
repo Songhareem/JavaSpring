@@ -26,9 +26,19 @@
         + id : id 속성 부여하면 getBean 메서드를 통해 객체의 주소값을 받아 사용가능
         + lazy-init : = "true" 값을 넣으면, xml 로딩시 객체를 생성하는 것이 아닌, getBean 호출시 생성
         + scope : 객체의 범위를 설정 (Singleton: 객체를 하나만 생성해서 사용, prototype: 객체를 가져올때마다 객체 생성(암묵적으로 lazy-init = "true"))
+        + init-method : 생성자 호출 이후 자동으로 지정 메서드 호출
+        + destroy-method : 객체가 소멸될 때 자동으로 호출
+        + default-init-method : init-method 설정 안한 경우 자동으로 호출
+        + default-destroy-method : destroy-method 설정 안한 경우 자동으로 호출
 
 + Bean 객체 생명 주기
-    + 
+    + 생성
+        + scope = "singleton" : 객체를 한번만 생성
+            + lazy-init = "false" : xml파일 로딩시 생성
+            + lazy-init = "true" : getBean시 객체 생성
+        + scope = "prototype" : getBean시, 객체 매번 새로 생성
+    + 삭제
+        + IoC 컨테이너 종료 시
 
 + 의존성?
     + 코드에서 두 모듈 간의 연결
