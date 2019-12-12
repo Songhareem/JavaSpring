@@ -3,15 +3,77 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-							http://www.springframework.org/schema/beans/spring-beans.xsd">
+							http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="default_init" default-destroy-method="default_destroy"> <!-- 모든 Bean에 해당 -->
 
 	<!-- xml을 로딩할때 자동으로 객체 생성 -->
 	<!-- 생성된 객체는 더이상 생성되지 않는다 (SingleTon) -->
 	
 	<!--
+	==============================================
+	// * lecture_1 *
+	// Bean 생성
+	==============================================
+	
 	<bean id='lec1_inner' class='kr.co.song.beans.TestBean'/>						
 	<bean class = "kr.co.song.beans.TestBean"/>
 	-->
 	
-	<bean id="lec2" class='kr.co.song.beans.TestBean' lazy-init='true' init-method="initMethod"/>
+	<!--
+	==============================================
+	// * lecture_2 *
+	// 생성시 옵션 설정
+	// lazy-init
+	// init-method
+	// destroy-method
+	// default-init-method
+	// default-destroy-method
+	// ... 
+	==============================================
+	
+	<bean id="lec2" class='kr.co.song.beans.TestBean' lazy-init='true' init-method="default_init" destroy-method="defalut_destroy"/>
+	<bean id="lec2" class='kr.co.song.beans.TestBean' lazy-init='true'/>
+	 -->
+	
+	<!--
+	==============================================
+	// * lecture_3 *
+	// Bean init-method 전후로 실행되는 BeanPostProcessor
+	==============================================
+	
+	<bean id="lec3" class="kr.co.song.beans.TestBean" lazy-init="true" />
+	<bean class="kr.co.song.processor.TestBeanPostProcessor"/>
+	-->
+	
+	<!--
+	==============================================
+	lecture_4
+	생성자를 통한 의존성 주입
+	value => 매개변수에 넣고 싶은 값
+	type => 매개변수에 넣을 값의 type (class라면 풀패키지 path 지정)
+	index => 몇번째 매개변수에 값을 넣을지 지정, 0에서 시작
+	==============================================
+	
+	// 값 주입시
+	<bean id="lec4" class="kr.co.song.beans.TestBean" lazy-init="true">
+		<constructor-arg value='100' type='int'/>
+		<constructor-arg value='10.5' type='double'/>
+		<constructor-arg value="StringType" type='java.lang.String' index='2'/>
+		<constructor-arg value="StringType2" type='java.lang.String' index='3'/>
+	</bean>
+	
+	// 객체 주입시(객체 생성 후, 주입)
+	// 객체 주입 방법
+	// 1) 아직 생성 안된 bean을 생성하면서 이용
+	// 2) 미리 생성한 bean의 주소를 이용
+	-->
+	<bean id="preMakedBean" class="kr.co.song.beans.DataBean" scope="prototype"/>
+	<bean id="lec4" class="kr.co.song.beans.TestBean" lazy-init="true">
+		<constructor-arg>
+			<bean class="kr.co.song.beans.DataBean"/>
+		</constructor-arg>
+		<constructor-arg ref="preMakedBean"/>
+	</bean>
+
+	
 </beans>

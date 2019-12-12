@@ -12,11 +12,16 @@ public class lecture_2 implements lecture{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("=========== start ============");
+
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("kr/co/song/config/beans.xml");
-	
-		TestBean tb = (TestBean)ctx.getBean("lec2");
-		
+		{
+			//System.out.println("create bean");
+			TestBean tb = (TestBean)ctx.getBean("lec2");
+			//System.out.println("before block");
+		}
+		//System.out.println("after block");
 		ctx.close();
+		System.out.println("=========== end ============");
 	}
 }

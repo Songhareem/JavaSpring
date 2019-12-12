@@ -39,6 +39,26 @@
         + scope = "prototype" : getBean시, 객체 매번 새로 생성
     + 삭제
         + IoC 컨테이너 종료 시
+    + 생성 및 삭제 시 호출될 메서드 등록 방법
+        + 각 Bean에 적용
+            + init-method
+            + destroy-method
+        + 전체 Bean에 적용
+            + default-init-method
+            + default-destroy-method
+        + 메서드가 없을 경우?
+            + default-init-method/default-destroy-method : 아무일도 없음
+            + init-method/destroy-method : 오류 발생
+    
++ BeanPostProcessor
+    + BeanPostProcessor 인터페이스를 구현한 클래스를 정의하면 Bean객 체를 생성하면</br>
+      init-method로 지정된 메서드를 호출하지 않고, 다른 메서드를 호출하게 할 수 있다
+    + postProcessBeforeInitialization : init-method 지정 메서드 호출 전에 호출
+    + postProcessAfterInitalization : init-mehtod 지정 메서드 호출 후에 호출
+    + 위의 두 메서드는 init-method가 지정되있지 않아도 자동 호출
+    + 매개변수
+        + Object bean       : 생성되는 객체의 주소값
+        + String beanName   : beanName = 생성된 객체에 해당하는 ID값
 
 + 의존성?
     + 코드에서 두 모듈 간의 연결
@@ -51,14 +71,21 @@
         + 유닛테스트의 목적이 다른 모듈로부터 독립적으로 테스트하는 것을 요구하기 때문
 
 + 의존성 주입
+    + Bean 객체 생성시, Bean 객체가 관리할 값이나 객체를 주입하는 것을 의미
+    + Bean 객체 생성 후, Bean 객체가 가질 기본값을 자가코드가 아닌 xml 코드에서 정의
     + 의존성의 위험성을 해결하기 위해 사용
     + 다른 클래스와 독립적으로 클래스 테스트 가능하게 해줌
+    + Spring에서 의존성 주입시, int 보다 double 타입이 우선
+    + 매개변수 기입시, type은 패키지를 포함하여 넣어줄것
+    + 의존성 주입시, 매개변수의 type과 생성자 매개변수 type이 일치한다면, 순서 상관없음
 
 + 의존성 주입 방법
     + public independencyClass(dependencyClass dc) {...}
         + 순환 참조시, 불가능한 방법 (A에서 B참조, B에서 A참조)
-    + @Autowired</br> private dependencyClass dc ;
-    + @Autowired</br> public void setter(dependencyClass dc) {...}
+    + @Autowired</br> 
+      private dependencyClass dc ;
+    + @Autowired</br> 
+      public void setter(dependencyClass dc) {...}
 
 # Spring AOP
 
