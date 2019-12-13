@@ -49,6 +49,7 @@
 	==============================================
 	lecture_4
 	생성자를 통한 의존성 주입
+	<constructor-arg> 태그 사용
 	value => 매개변수에 넣고 싶은 값
 	type => 매개변수에 넣을 값의 type (class라면 풀패키지 path 지정)
 	index => 몇번째 매개변수에 값을 넣을지 지정, 0에서 시작
@@ -66,7 +67,6 @@
 	// 객체 주입 방법
 	// 1) 아직 생성 안된 bean을 생성하면서 이용
 	// 2) 미리 생성한 bean의 주소를 이용
-	-->
 	<bean id="preMakedBean" class="kr.co.song.beans.DataBean" scope="prototype"/>
 	<bean id="lec4" class="kr.co.song.beans.TestBean" lazy-init="true">
 		<constructor-arg>
@@ -74,6 +74,28 @@
 		</constructor-arg>
 		<constructor-arg ref="preMakedBean"/>
 	</bean>
-
+	-->
+	
+	<!-- 
+	==============================================
+	lecture_5
+	Setter 통한 의존성 주입
+	<property> 태그 사용
+	name => 앞에 'set'을 붙여서 해당 setter를 호출
+	value => 매개변수에 넣고 싶은 값
+	type => 매개변수에 넣을 값의 type (class라면 풀패키지 path 지정)
+	==============================================
+	
+	-->
+	<bean id="preMakedBean" class="kr.co.song.beans.DataBean"/>
+	<bean id="lec5" class="kr.co.song.beans.TestBean" lazy-init = "true">
+		<property name="data1" value="100"/>
+		<property name="data2" value="10.5"/>
+		<property name="data3" value="StringType"/>
+		<property name="dataBean1">
+			<bean class='kr.co.song.beans.DataBean'/>
+		</property>
+		<property name="dataBean2" ref="preMakedBean"/>
+	</bean>
 	
 </beans>

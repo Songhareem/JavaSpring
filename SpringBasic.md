@@ -75,9 +75,18 @@
     + Bean 객체 생성 후, Bean 객체가 가질 기본값을 자가코드가 아닌 xml 코드에서 정의
     + 의존성의 위험성을 해결하기 위해 사용
     + 다른 클래스와 독립적으로 클래스 테스트 가능하게 해줌
-    + Spring에서 의존성 주입시, int 보다 double 타입이 우선
-    + 매개변수 기입시, type은 패키지를 포함하여 넣어줄것
-    + 의존성 주입시, 매개변수의 type과 생성자 매개변수 type이 일치한다면, 순서 상관없음
+    + Spring에서 의존성 주입시 + type 미지정시, 우선순위 : 문자열 > 실수 > 정수
+    + 1 ) 생성자를 통한 주입
+        + 의존성 주입시, 매개변수의 type과 생성자 매개변수 type이 일치한다면, 순서 상관없음
+        + < constructor-arg > 태그 사용
+        + value : 매개변수에 넣고 싶은 값
+        + type : 매개변수에 넣을 값의 type (class라면 풀패키지 path 지정)
+        + index : 몇번째 매개변수에 값을 넣을지 지정, 0에서 시작
+    + 2 ) Setter를 이용한 주입
+        + < property > 태그 사용
+        + name : 앞에 'set'을 붙여서 해당 setter를 호출
+        + value : 매개변수에 넣을 값
+        + type : 넣을 value의 type
 
 + 의존성 주입 방법
     + public independencyClass(dependencyClass dc) {...}
