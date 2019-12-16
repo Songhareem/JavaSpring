@@ -67,12 +67,12 @@
 	// 객체 주입 방법
 	// 1) 아직 생성 안된 bean을 생성하면서 이용
 	// 2) 미리 생성한 bean의 주소를 이용
-	<bean id="preMakedBean" class="kr.co.song.beans.DataBean" scope="prototype"/>
+	<bean id="preBean" class="kr.co.song.beans.DataBean" scope="prototype"/>
 	<bean id="lec4" class="kr.co.song.beans.TestBean" lazy-init="true">
 		<constructor-arg>
 			<bean class="kr.co.song.beans.DataBean"/>
 		</constructor-arg>
-		<constructor-arg ref="preMakedBean"/>
+		<constructor-arg ref="preBean"/>
 	</bean>
 	-->
 	
@@ -86,8 +86,7 @@
 	type => 매개변수에 넣을 값의 type (class라면 풀패키지 path 지정)
 	==============================================
 	
-	-->
-	<bean id="preMakedBean" class="kr.co.song.beans.DataBean"/>
+	<bean id="preBean" class="kr.co.song.beans.DataBean"/>
 	<bean id="lec5" class="kr.co.song.beans.TestBean" lazy-init = "true">
 		<property name="data1" value="100"/>
 		<property name="data2" value="10.5"/>
@@ -95,7 +94,143 @@
 		<property name="dataBean1">
 			<bean class='kr.co.song.beans.DataBean'/>
 		</property>
-		<property name="dataBean2" ref="preMakedBean"/>
+		<property name="dataBean2" ref="preBean"/>
 	</bean>
+	-->
+
+	<!-- 
+	==============================================
+	lecture_6
+	컬렉션 주입
+	<property> 태그 사용
+		<컬렉션종류>
+			1) 값 주입시,
+			<value> 사용 : 문자열을 제외하고는 type과 같이 사용하는 것이 좋음
+			2) 객체 주입시,
+			<bean> or <ref> 태그 사용
+	컬렉션의 종류
+	1) Set
+	   - 순서 유지 X, 데이터의 중복 허용 X
+	  - ref 시, bean의 주소값이 같던 다르던, id가 같다면, 하나만 허용
+	2) List
+	   - 순서 유지 O, 데이터의 중복 허용  
+	3) Queue
+	  - List와 유사
+	4) Map
+	  - Key/Value 구조, 순서 유지 X, 키의 중복 허용 X / 값중복 허용 O
+	5) Properties
+	  - key/Value 구조, 파일 입출력 지원
+	
+	==============================================
+	
+	<bean id="preBean" class="kr.co.song.beans.DataBean" scope="prototype"/>
+	<bean id="lec6" class="kr.co.song.beans.TestBean" lazy-init = "true">
+		<property name="List1">
+			<list>
+				<value>문자열1</value>
+				<value>문자열2</value>
+				<value>문자열3</value>	
+			</list>
+		</property>
+		<property name="List2">
+			<list>
+				<value type="int">1</value>
+				<value type="int">2</value>
+				<value type="int">3</value>
+			</list>
+		</property>
+		<property name = "List3">
+			<set>
+				<bean class = "kr.co.song.beans.DataBean"/>
+				<bean class = "kr.co.song.beans.DataBean"/>
+				<ref bean="preBean"/>
+				<ref bean="preBean"/>
+			</set>
+		</property>
+		<property name="Set1">
+			<set>
+				<value>문자열1</value>
+				<value>문자열2</value>
+				<value>문자열3</value>	
+			</set>
+		</property>
+		<property name="Set2">
+			<set>
+				<value type="int">1</value>
+				<value type="int">2</value>
+				<value type="int">3</value>
+			</set>
+		</property>
+		<property name = "Set3">
+			<set>
+				<bean class = "kr.co.song.beans.DataBean"/>
+				<bean class = "kr.co.song.beans.DataBean"/>
+				<ref bean="preBean"/>
+				<ref bean="preBean"/>
+			</set>
+		</property>
+		<property name="Map1">
+			<map>
+				<entry key="a1" value="문자열"></entry>
+				<entry key="a2" value="100" value-type="int"></entry>
+				<entry key="a3">
+					<bean class="kr.co.song.beans.DataBean"/>
+				</entry>
+				<entry key="a4" value-ref="preBean"/>
+				<entry key="a5">
+					<list>
+						<value>문자열1</value>
+						<value>문자열2</value>
+						<value>문자열3</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="prop1">
+			<props>
+				<prop key="p1">문자열1</prop>
+				<prop key="p2">문자열2</prop>
+				<prop key="p3">문자열3</prop>	
+			</props>
+		</property>
+	</bean>
+	-->
+	
+	<!-- 
+	==============================================
+	lecture_7
+	자동 주입
+	1) 이름을 통한 주입
+		autowire="byName"
+		autowire 선언한 클래스 내의 변수명과 주입할 bean의 이름이 같아야 주입됨	
+	2) type을 통한 주입
+		autowire="byType"
+		bean 객체의 프로퍼티 타입과 정의된 빈의 타입이 일치하면 주입(일치하는 타입에 전부 주입)
+		동일 타입의 빈이 두개 이상이면 오류
+	3) 생성자를 통한 주입
+		autowire="constructor"
+		객체만 자동 주입 가능, 나머지는 지정해주어야 함(int String 등)
+	4) default-autowire="byName/byType/constructor" 가능
+		autowire="no" 옵션을 통해 위의 기능을 무시 가능
+	==============================================
+
+	// 이름을 통한 주입
+	<bean id="lec7" class="kr.co.song.beans.TestBean" autowire="byName"/>
+	<bean id="dataBean1" class="kr.co.song.beans.DataBean"/>
+	<bean id="dataBean2" class="kr.co.song.beans.DataBean"/>
+
+	// 타입을 통한 주입	
+	<bean id="lec7" class="kr.co.song.beans.TestBean" autowire="byType"/>
+	<bean id="dataBean1" class="kr.co.song.beans.DataBean" />
+	
+	// 생성자를 통한 주입
+	<bean id="preBean" class="kr.co.song.beans.DataBean"/>
+	<bean id="lec7" class="kr.co.song.beans.TestBean" autowire="constructor">
+		<constructor-arg value="100" index="0" type="int"/>
+		<constructor-arg value="문자열" index="1" />
+	</bean>	
+	-->
+	
+		
 	
 </beans>
