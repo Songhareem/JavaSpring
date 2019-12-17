@@ -19,19 +19,29 @@
     + 의존성 주입은 Bean끼리만 가능! (IoC컨테이너 안에 있는 Bean끼리)
 
 + Bean 객체 생성
-    + xml을 로딩할 때 자동으로 객체가 생성된다.(디폴트로 lazy-init = "false")
-    + 생성된 객체는 더 이상 생성되지 않는다. (디폴트로 scope="singleton")
-    + Bean 태그의 속성
-        + class : 객체를 생성하기위해 사용할 클래스를 지정
-        + id : id 속성 부여하면 getBean 메서드를 통해 객체의 주소값을 받아 사용가능
-        + lazy-init : = "true" 값을 넣으면, xml 로딩시 객체를 생성하는 것이 아닌,
-        getBean 호출시 생성
-        + scope : 객체의 범위를 설정 (Singleton: 객체를 하나만 생성해서 사용    
-        + prototype: 객체를 가져올때마다 객체 생성(암묵적으로 lazy-init = "true"))
-        + init-method : 생성자 호출 이후 자동으로 지정 메서드 호출
-        + destroy-method : 객체가 소멸될 때 자동으로 호출
-        + default-init-method : init-method 설정 안한 경우 자동으로 호출
-        + default-destroy-method : destroy-method 설정 안한 경우 자동으로 호출
+    + xml 파일을 통해 빈 등록
+        + xml을 로딩할 때 자동으로 객체가 생성된다.(디폴트로 lazy-init = "false")
+        + 생성된 객체는 더 이상 생성되지 않는다. (디폴트로 scope="singleton")
+        + Bean 태그의 속성
+            + class : 객체를 생성하기위해 사용할 클래스를 지정
+            + id : id 속성 부여하면 getBean 메서드를 통해 객체의 주소값을 받아 사용가능
+            + lazy-init : = "true" 값을 넣으면, xml 로딩시 객체를 생성하는 것이 아닌,
+            getBean 호출시 생성
+            + scope : 객체의 범위를 설정 (Singleton: 객체를 하나만 생성해서 사용)
+            + prototype: 객체를 가져올때마다 객체 생성(암묵적으로 lazy-init = "true")
+            + init-method : 생성자 호출 이후 자동으로 지정 메서드 호출
+            + destroy-method : 객체가 소멸될 때 자동으로 호출
+            + default-init-method : init-method 설정 안한 경우 자동으로 호출
+            + default-destroy-method : destroy-method 설정 안한 경우 자동으로 호출
+    + java 파일에서 Annotation 활용하여 빈 등록
+        + xml 파일에 비해 비교적 코드 작성이 자유로움
+        + @Bean
+            + bean 객체 정의시 사용
+            + 메서드의 이름이 bean의 이름이 된다
+            + @Bean(name=이름) : bean의 이름을 새롭게 정의
+        + @Lazy : lazy-init = true 으로 설정
+        + @Scope : bean의 scope=prototype 으로 설정
+        + @Primary : primary 속성 지정
 
 + Bean 객체 생명 주기
     + 생성
