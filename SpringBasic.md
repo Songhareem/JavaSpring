@@ -33,12 +33,15 @@
             + destroy-method : 객체가 소멸될 때 자동으로 호출
             + default-init-method : init-method 설정 안한 경우 자동으로 호출
             + default-destroy-method : destroy-method 설정 안한 경우 자동으로 호출
+            + primary : id 없는 같은 클래스 다수가 bean 등록이 되어있을 때, primary = "true" 를 설정한 bean이 대표 bean이 된다
     + java 파일에서 Annotation 활용하여 빈 등록
         + xml 파일에 비해 비교적 코드 작성이 자유로움
         + @Bean
             + bean 객체 정의시 사용
             + 메서드의 이름이 bean의 이름이 된다
-            + @Bean(name=이름) : bean의 이름을 새롭게 정의
+            + (name=이름) : bean의 이름을 새롭게 정의
+            + (initMethod=메소드명) : 객체 생성시, 해당 메소드명을 가진 메소드를 실행
+            + (destroyMethod=메소드명) : 객체 파괴시, 해당 메소드명을 가진 메소드를 실행
         + @Lazy : lazy-init = true 으로 설정
         + @Scope : bean의 scope=prototype 으로 설정
         + @Primary : primary 속성 지정

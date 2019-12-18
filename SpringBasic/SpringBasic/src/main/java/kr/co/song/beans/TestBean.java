@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
 public class TestBean {
 
 	//====================
@@ -17,6 +22,10 @@ public class TestBean {
 	
 	private DataBean dataBean1;
 	private DataBean dataBean2;
+	
+	@Autowired
+	@Qualifier("dataBean3")
+	private DataBean dataBean3;
 	
 	private List<String> list1;
 	private List<Integer> list2;
@@ -79,6 +88,16 @@ public class TestBean {
 		System.out.println("디폴트 파괴자 함수 호출");
 	}
 	
+	public void init() {
+		
+		System.out.println("lec9 init 호출");
+	}
+	
+	public void destroy() {
+		
+		System.out.println("lec9 destroy 호출");
+	}
+	
 	public void printData(boolean sw) {
 		
 		if(sw == true ) {
@@ -117,11 +136,12 @@ public class TestBean {
 	public void setData3(String data3) {
 		this.data3 = data3;
 	}
-
+	
 	public DataBean getDataBean1() {
 		return dataBean1;
 	}
-
+	
+	@Autowired
 	public void setDataBean1(DataBean dataBean1) {
 		this.dataBean1 = dataBean1;
 	}
@@ -130,8 +150,14 @@ public class TestBean {
 		return dataBean2;
 	}
 
+	@Autowired
 	public void setDataBean2(DataBean dataBean2) {
 		this.dataBean2 = dataBean2;
+	}
+
+	// 변수에 @Autowired가 붙었으므로, Setter는 선언하지 않는다
+	public DataBean getDataBean3() {
+		return dataBean3;
 	}
 
 	public List<String> getList1() {
@@ -197,6 +223,6 @@ public class TestBean {
 	public void setProp1(Properties prop1) {
 		this.prop1 = prop1;
 	}
-	
-	
+
+
 }

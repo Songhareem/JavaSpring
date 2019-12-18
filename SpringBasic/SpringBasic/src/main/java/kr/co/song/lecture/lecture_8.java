@@ -13,11 +13,19 @@ public class lecture_8 implements lecture{
 		//AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext("kr.co.song.config.BeanConfig.java");
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(BeanConfig.class);
 
-		TestBean tb = (TestBean)ctx.getBean("lec_8");
-		TestBean tb2 = (TestBean)ctx.getBean("lec_8");
+		//TestBean tb = (TestBean)ctx.getBean("lec_8");
+		//TestBean tb2 = (TestBean)ctx.getBean("lec_8");
 		
-		System.out.printf("%s\n",tb);
-		System.out.printf("%s\n",tb2);
+		//System.out.printf("%s\n",tb);
+		//System.out.printf("%s\n",tb2);
+
+		System.out.println("=============================================");
+		
+		TestBean tb3 = (TestBean)ctx.getBean(TestBean.class);
+		TestBean tb4 = (TestBean)ctx.getBean(TestBean.class);
+		
+		System.out.printf("%s\n",tb3);
+		System.out.printf("%s\n",tb4);
 
 		ctx.close();
 	}
