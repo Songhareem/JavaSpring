@@ -15,7 +15,7 @@ public class main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		lecture lec = new lecture__11();
+		lecture lec = new lecture__14();
 		lec.run();
 	}
 }

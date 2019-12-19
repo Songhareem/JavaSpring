@@ -5,11 +5,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class TestBean {
 
 	//====================
@@ -23,9 +27,15 @@ public class TestBean {
 	private DataBean dataBean1;
 	private DataBean dataBean2;
 	
-	@Autowired
-	@Qualifier("dataBean3")
+	@Autowired(required = false)
+	@Qualifier("dataBean")
 	private DataBean dataBean3;
+	
+	@Resource
+	private DataBean dataBean4;
+	
+	@Resource(name = "dataBean4")
+	private DataBean dataBean5;
 	
 	private List<String> list1;
 	private List<Integer> list2;
@@ -45,12 +55,6 @@ public class TestBean {
 	// 생성자
 	public TestBean() {
 		
-		System.out.println("TestBean 생성");
-		
-		this.data1 = 0;
-		this.data2 = 0.0;
-		this.data3 = null;
-		this.data4 = null;
 	}
 
 	public TestBean(int data1, double data2, String data3, String data4) {
@@ -98,6 +102,18 @@ public class TestBean {
 		System.out.println("lec9 destroy 호출");
 	}
 	
+	@PostConstruct
+	public void postInit() {
+		
+		System.out.println("lec12 init 호출");
+	}
+	
+	@PreDestroy
+	public void preDestroy() {
+		
+		System.out.println("lec12 destroy 호출");
+	}
+	
 	public void printData(boolean sw) {
 		
 		if(sw == true ) {
@@ -141,7 +157,7 @@ public class TestBean {
 		return dataBean1;
 	}
 	
-	@Autowired
+	@Autowired(required=false)
 	public void setDataBean1(DataBean dataBean1) {
 		this.dataBean1 = dataBean1;
 	}
@@ -150,7 +166,7 @@ public class TestBean {
 		return dataBean2;
 	}
 
-	@Autowired
+	@Autowired(required=false)
 	public void setDataBean2(DataBean dataBean2) {
 		this.dataBean2 = dataBean2;
 	}
@@ -158,6 +174,16 @@ public class TestBean {
 	// 변수에 @Autowired가 붙었으므로, Setter는 선언하지 않는다
 	public DataBean getDataBean3() {
 		return dataBean3;
+	}
+
+	// 변수에 @Resource가 붙었으므로, Setter는 선언하지 않는다
+	public DataBean getDataBean4() {
+		return dataBean4;
+	}
+
+	// 변수에 @Resource가 붙었으므로, Setter는 선언하지 않는다
+	public DataBean getDataBean5() {
+		return dataBean5;
 	}
 
 	public List<String> getList1() {
