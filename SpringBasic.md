@@ -113,9 +113,11 @@
 
 # Spring AOP
 
-+ AOP?
-    + Aspect Oriented Programming
++ AOP? (Aspect Oriented Programming)
+    + 관점 지향 프로그래밍
+    + 메소드 호출을 하면 내가 짠 메소드 전후에 다른 모듈을 넣어서 실행시킬수 있게 해줌
     + 흩어진 코드를 한 곳으로 모아놓는 것
+    + 로깅, 감사, 선언적 트랜젝션, 보안, 캐싱 등에서 사용
 
 + 다양한 AOP 구현방법
     + 컴파일

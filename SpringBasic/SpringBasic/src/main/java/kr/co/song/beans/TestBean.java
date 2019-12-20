@@ -128,6 +128,16 @@ public class TestBean {
 		}
 	}
 	
+	// AOP 호출 함수
+	public int aopMethod() {
+		
+		System.out.println("AOP method 호출");
+		
+		//int a = 10/0;
+		
+		return 100;
+	}
+	
 	// getter/setter
 	public int getData1() {
 		return data1;

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	                    http://www.springframework.org/schema/beans/spring-beans.xsd
 	                    http://www.springframework.org/schema/context
 	                    http://www.springframework.org/schema/context/spring-context.xsd
-	default-init-method="default_init" default-destroy-method="default_destroy"> <!-- 모든 Bean에 해당 -->
+	                    http://www.springframework.org/schema/aop
+	                    http://www.springframework.org/schema/aop/spring-aop.xsd">
+	                    
+	<!-- default-init-method="default_init" default-destroy-method="default_destroy"> 모든 Bean에 해당 -->
 
 	<!-- xml을 로딩할때 자동으로 객체 생성 -->
 	<!-- 생성된 객체는 더이상 생성되지 않는다 (SingleTon) -->
@@ -234,6 +237,34 @@
 	</bean>	
 	-->
 	
+	<!-- 
+	==============================================
+	lecture_15
 	
+	AOP 용어
+	1) Joint Point : 모듈이 삽입되어 동작하는 특정 위치(메소드 호출 등)
+	2) Point Cut : 다양한 Joint Point 중 어떤 것을 사용할지 선택
+	3) Advice : Joint Point에 (전 후로)삽입되어 동작할 수 있는 코드
+	4) Advisor : Advice를 가지고 있는 클래스
+	5) Weaving : Advice를 핵심 로직 코드에 적용하는 것
+	6) Aspect : Point Cut + Advice
+		
 	
+	==============================================
+	
+	-->
+	<bean id="lec_15" class="kr.co.song.beans.TestBean"/>
+	<bean id="advisor" class="kr.co.song.advisor.Advisor"/>
+	
+	<aop:config>
+		<aop:aspect ref="advisor">
+			<aop:pointcut id="point" expression="execution(* aopMethod())"/>
+			
+			<aop:before method = "beforeMethod" pointcut-ref="point"/>
+			<aop:after method = "afterMethod" pointcut-ref="point"/>
+			<aop:around method="aroundMethod" pointcut-ref="point"/>
+			<aop:after-returning method="afterReturningMethod" pointcut-ref="point"/>
+			<aop:after-throwing method="afterThrowingMethod" pointcut-ref="point" throwing="err"/>
+		</aop:aspect>
+	</aop:config>
 </beans>
